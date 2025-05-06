@@ -36,4 +36,4 @@ while True:
         print("Hasta luego.")
         break
     else:
-        print("❌ Opción no válida.")
+        print("Opción no válida.")
