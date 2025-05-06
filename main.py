@@ -16,24 +16,24 @@ while True:
         titulo = input("Título de la nota: ")
         contenido = input("Contenido: ")
         agregar_nota(titulo, contenido)
-        print("✅ Nota guardada.")
+        print("Nota guardada.")
     elif opcion == "2":
         palabra = input("Buscar por palabra clave: ")
         resultados = buscar_notas(palabra)
         if resultados:
             for nota in resultados:
-                print(f"\n📌 {nota['titulo']} ({nota['fecha']})\n{nota['contenido']}")
+                print(f"\n{nota['titulo']} ({nota['fecha']})\n{nota['contenido']}")
         else:
-            print("🔍 No se encontraron notas.")
+            print("No se encontraron notas.")
     elif opcion == "3":
         notas = listar_notas()
         if notas:
             for nota in notas:
-                print(f"\n📝 {nota['titulo']} ({nota['fecha']})\n{nota['contenido']}")
+                print(f"\n{nota['titulo']} ({nota['fecha']})\n{nota['contenido']}")
         else:
-            print("📂 No hay notas aún.")
+            print("No hay notas aún.")
     elif opcion == "4":
-        print("👋 Hasta luego.")
+        print("Hasta luego.")
         break
     else:
         print("❌ Opción no válida.")
