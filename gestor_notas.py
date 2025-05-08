@@ -1,33 +1,23 @@
-#gestor_notas.py
-import json
 import os
-from datetime import datetime
 
-ARCHIVO_NOTAS = "notas.json"
+RUTA_NOTAS = "notas"
 
-def cargar_notas():
-    if not os.path.exists(ARCHIVO_NOTAS):
-        return []
-    with open(ARCHIVO_NOTAS, "r", encoding="utf-8") as f:
-        return json.load(f)
+def crear_directorio():
+    if not os.path.exists(RUTA_NOTAS):
+        os.makedirs(RUTA_NOTAS)
 
-def guardar_notas(notas):
-    with open(ARCHIVO_NOTAS, "w", encoding="utf-8") as f:
-        json.dump(notas, f, indent=4, ensure_ascii=False)
+def listar_nombres():
+    return sorted(f.replace(".txt", "") for f in os.listdir(RUTA_NOTAS) if f.endswith(".txt"))
 
-def agregar_nota(titulo, contenido):
-    notas = cargar_notas()
-    nueva_nota = {
-        "titulo": titulo,
-        "contenido": contenido,
-        "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    }
-    notas.append(nueva_nota)
-    guardar_notas(notas)
+def guardar(titulo, contenido):
+    if not titulo.strip():
+        raise ValueError("Título vacío")
+    with open(os.path.join(RUTA_NOTAS, f"{titulo}.txt"), "w", encoding="utf-8") as f:
+        f.write(contenido)
 
-def buscar_notas(palabra_clave):
-    notas = cargar_notas()
-    return [nota for nota in notas if palabra_clave.lower() in nota["titulo"].lower() or palabra_clave.lower() in nota["contenido"].lower()]
-
-def listar_notas():
-    return cargar_notas()
+def cargar(titulo):
+    ruta = os.path.join(RUTA_NOTAS, f"{titulo}.txt")
+    if not os.path.exists(ruta):
+        raise FileNotFoundError
+    with open(ruta, "r", encoding="utf-8") as f:
+        return f.read()
